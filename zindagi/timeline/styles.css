@@ -1,0 +1,602 @@
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&display=swap');
+
+  :root {
+    --primary: #b83265;           /* Deep Rose */
+    --secondary: #5c5470;         /* Muted Lavender */
+    --accent: #91314f;            /* Bold Wine Pink */
+    --light: #2c2c2c;             /* Deep Charcoal instead of white */
+    --dark: #1a1a1a;              /* Almost Black */
+    --gradient-start: #3d2c8d;    /* Deep Indigo */
+    --gradient-mid: #4834d4;      /* Royal Blue-Violet */
+    --gradient-end: #6c5ce7;      /* Retain for continuity */
+    --shadow-color: rgba(72, 52, 212, 0.2);  /* Soft Purple Shadow */
+    --heart-color: #b83265;       /* Match primary for harmony */
+    --heart-shadow: rgba(184, 50, 101, 0.4); /* Harmonious deep heart glow */
+  }
+
+  body {
+    background: linear-gradient(-45deg, 
+      #8b1e3f, #6f1e51, #4a1f3d, 
+      #3d2c8d, #2d2367, 
+      #91314f, #1a1a1a);
+
+    background-size: 400% 400%;
+    animation: gradientFlow 15s ease infinite;
+
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+    margin: 0;
+    padding: 0;
+    font-family: 'Cormorant Garamond', serif;
+    color: var(--light);
+    min-height: 100vh;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  @keyframes gradientBG {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
+  #timeline {
+    max-width: 90vw;
+    width: 100%;
+    height: 100vh;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  header {
+    text-align: center;
+    padding: 1rem 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 10;
+  }
+
+  h1 {
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+    font-weight: 300;
+    letter-spacing: 2px;
+    text-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    animation: glow 3s ease-in-out infinite alternate;
+  }
+
+  @keyframes glow {
+    from {
+      text-shadow: 0 0 5px rgba(255, 255, 255, 0.5),
+                  0 0 10px rgba(255, 255, 255, 0.5),
+                  0 0 15px var(--primary),
+                  0 0 20px var(--primary);
+    }
+    to {
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.5),
+                  0 0 20px rgba(255, 255, 255, 0.5),
+                  0 0 30px var(--accent),
+                  0 0 40px var(--accent);
+    }
+  }
+
+  .timeline-entry {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 2rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    transition: all 0.7s cubic-bezier(0.25, 0.1, 0.25, 1);
+    position: relative;
+    overflow: hidden;
+    display: none; /* Initially hide all entries */
+    width: 80%;
+    max-height: 75vh;
+    margin: 0 auto;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .timeline-entry.active {
+    display: block; /* Show only active entry */
+    animation: fadeInScale 0.7s ease-out forwards;
+  }
+
+  @keyframes fadeInScale {
+    from {
+      opacity: 0;
+      transform: scale(0.9) translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+  }
+
+  .timeline-entry::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent), var(--primary), var(--secondary), var(--accent));
+    background-size: 300% 100%;
+    animation: borderGlow 5s linear infinite;
+    border-radius: 3px 3px 0 0;
+  }
+
+  @keyframes borderGlow {
+    0% { background-position: 0% 0%; }
+    100% { background-position: 300% 0%; }
+  }
+
+  .timeline-entry h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: white;
+    font-weight: 400;
+    letter-spacing: 1px;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    text-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    animation: glow 3s ease-in-out infinite alternate;
+  }
+
+  .poetry-text {
+    font-size: 1.4rem;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+    font-weight: 300;
+    opacity: 0;
+    max-height: 30vh;
+    overflow-y: auto;
+    color: white;
+    padding-right: 10px;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    text-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    animation: glow 3s ease-in-out infinite alternate;
+    /* Custom scrollbar for poetry text */
+  }
+
+  .poetry-text::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  .poetry-text::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+  }
+
+  .poetry-text::-webkit-scrollbar-thumb {
+    background: var(--primary);
+    border-radius: 10px;
+  }
+
+  .media-container {
+    width: 100%;
+    border-radius: 30px;
+    overflow: hidden;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+    position: relative;
+    margin: 0 auto;
+    height: 45vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    transition: transform 0.5s ease;
+  }
+
+  .media-container:hover {
+    transform: scale(1.02);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+  }
+
+  lottie-player, video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .timeline-entry[data-month="march"] .media-container video {
+    object-position: top; /* This will only apply to the March video */
+  }
+  
+
+  .back-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 16px;
+    background-color: var(--back-btn-bg);
+    color: var(--back-btn-text);
+    text-decoration: none;
+    border-radius: 4px;
+    font-family: 'Arial', sans-serif;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    transition: all 0.2s ease;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    position: relative;
+    margin: 20px 0;
+    margin-top: -400px;
+  }
+
+  .back-btn:before {
+    content: "←";
+    font-size: 18px;
+    margin-right: 8px;
+    position: relative;
+    top: -1px;
+    color: white;
+  }
+
+  .back-btn:after {
+    content: "";
+    font-size: 14px;
+  }
+
+  .back-btn:hover {
+    background-color: var(--back-btn-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  }
+
+  .back-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+
+  @keyframes gradientFlow {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  .floating-hearts {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  .heart {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: var(--heart-color);
+    transform: rotate(45deg);
+    opacity: 0.2;
+    animation: float 15s linear infinite;
+    box-shadow: 0 0 10px var(--heart-shadow);
+  }
+
+  .heart::before,
+  .heart::after {
+    content: '';
+    width: 20px;
+    height: 20px;
+    background: var(--heart-color);
+    border-radius: 50%;
+    position: absolute;
+    box-shadow: 0 0 10px var(--heart-shadow);
+  }
+
+  .heart::before {
+    top: -10px;
+    left: 0;
+  }
+
+  .heart::after {
+    top: 0;
+    left: -10px;
+  }
+
+  @keyframes float {
+    0% {
+      transform: rotate(45deg) translateY(0) translateX(0);
+      opacity: 0;
+    }
+    10% {
+      opacity: 0.4;
+    }
+    100% {
+      transform: rotate(45deg) translateY(-100vh) translateX(100px);
+      opacity: 0;
+    }
+  }
+
+  #audio-controls {
+    position: fixed;
+    width: 100px;
+    bottom: 10px;
+    right: 20px;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    border-radius: 30px;
+    padding:10px 20px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    z-index: 100;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
+  }
+
+  #audio-controls:hover {
+    background: rgba(255, 255, 255, 0.25);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+  }
+
+  #audio-controls button {
+    background: none;
+    border: none;
+    color: white
+    font-size: 1.5rem;
+    cursor: pointer;
+    margin: 0 5px;
+    transition: all 0.3s;
+    width: 10px;
+  }
+
+  #audio-controls button:hover {
+    transform: scale(1.2);
+    color: var(--primary);
+    text-shadow: 0 0 10px rgba(255, 77, 148, 0.5);
+  }
+
+  .volume-control {
+    width: 100px;
+    margin: 0 10px;
+    margin-left: -20px;
+    -webkit-appearance: none;
+    height: 5px;
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.3);
+    outline: none;
+  }
+
+  .volume-control::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: var(--primary);
+    cursor: pointer;
+    box-shadow: 0 0 5px var(--primary);
+    transition: all 0.2s;
+  }
+
+  .volume-control::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+  }
+
+  /* Add navigation controls */
+  #slide-controls {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    border-radius: 30px;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    z-index: 100;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
+    visibility: hidden;
+  }
+
+  #slide-controls:hover {
+    background: rgba(255, 255, 255, 0.25);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+  }
+
+  #slide-controls button {
+    background: none;
+    border: none;
+    color: var(--light);
+    font-size: 1.5rem;
+    cursor: pointer;
+    margin: 0 15px;
+    transition: all 0.3s;
+  }
+
+  #slide-controls button:hover {
+    transform: scale(1.2);
+    color: var(--primary);
+    text-shadow: 0 0 10px rgba(255, 77, 148, 0.5);
+  }
+
+  /* Hide slide indicator as requested */
+  #slide-indicator {
+    display: none;
+  }
+
+  @media (max-width: 768px) {
+    .timeline-entry {
+      padding: 1.5rem;
+      width: 90%;
+    }
+    
+    .media-container {
+      height: 30vh;
+    }
+    
+    h1 {
+      font-size: 2.2rem;
+    }
+    
+    .timeline-entry h2 {
+      font-size: 1.8rem;
+    }
+    
+    .poetry-text {
+      font-size: 1.1rem;
+      max-height: 25vh;
+    }
+    
+    #slide-controls {
+      padding: 8px 12px;
+    }
+    
+    #slide-controls button {
+      font-size: 1.2rem;
+      margin: 0 8px;
+    }
+    /* Styling for the next step button */
+  /* Initial state: hidden */
+  /* Next Section Container - Add this to your main CSS file */
+  .next-section-container {
+    display: none; /* Initially hidden */
+    width: 100%;
+    justify-content: center;
+    margin: 4rem 0;
+    position: relative;
+    z-index: 10;
+  }
+
+  .next-step-button {
+    background: linear-gradient(45deg, #8a1d0e, #3e147a);
+    color: white;
+    padding: 1rem 2rem;
+    font-size: 1.3rem;
+    border-radius: 50px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    animation: float-button 3s ease-in-out infinite;
+    font-weight: bold;
+  }
+
+  .next-step-button:hover {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+  }
+
+  .next-step-button i {
+    font-size: 1.5rem;
+  }
+
+  /* Animation for highlighting the button */
+  @keyframes highlight-pulse {
+    0% {
+      box-shadow: 0 0 0 0 rgba(189, 147, 249, 0.7);
+    }
+    70% {
+      box-shadow: 0 0 0 15px rgba(189, 147, 249, 0);
+    }
+    100% {
+      box-shadow: 0 0 0 0 rgba(189, 147, 249, 0);
+    }
+  }
+
+  @keyframes float-button {
+    0% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
+
+  .highlight-button {
+    animation: highlight-pulse 2s infinite cubic-bezier(0.66, 0, 0, 1);
+  }
+
+  /* Popup overlay styles */
+  #next-step-popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 999;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    animation: fade-in 0.5s ease-in-out;
+  }
+
+  @keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  /* Timeline entry active state */
+  .timeline-entry.active {
+    display: block;
+    animation: fade-in 0.8s ease-in-out;
+  }
+
+  .timeline-entry:not(.active) {
+    display: none;
+  }
+
+  /* Slide controls styling */
+  #slide-controls {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 15px;
+    background: rgba(40, 42, 54, 0.8);
+    padding: 10px 20px;
+    border-radius: 50px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    z-index: 100;
+  }
+
+  #slide-controls button {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+  }
+
+  #slide-controls button:hover {
+    background: rgba(255, 255, 255, 0.2);
+  }
+
+  #slide-indicator {
+    color: white;
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
+    font-size: 0.9rem;
+  }
+/* May Slideshow Styles */
+/* May Slideshow Styles */

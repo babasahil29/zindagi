@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kya Hana Woh</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="particles"></div>
+    
+    <div class="container">
+        <header>
+            <h1>Kya Kya Chahti hain Humse?</h1>
+            <p class="subtitle">Ek Click, Hajaar Kasme<p>
+        </header>
+
+        <div class="cards-container">
+            <!-- Cards will be dynamically inserted here -->
+        </div>
+
+        <div class="next-button-container">
+            <button id="nextButton" class="hidden">Chalo Hamein Ab Bohot Kehna Hai <i class="fas fa-heart"></i></button>
+        </div>
+    </div>
+
+    <!-- Card Templates -->
+    <template id="promise-card-template">
+        <div class="card">
+            <div class="card-inner">
+                <div class="card-front">
+                    <div class="card-content">
+                        <div class="card-icon">
+                            <i class="fas fa-heart heart-icon"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-back">
+                    <div class="close-area"></div>
+                    <div class="card-content">
+                        <p class="promise-text"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <template id="blank-card-template">
+        <div class="card">
+            <div class="card-inner">
+                <div class="card-front">
+                    <div class="card-content">
+                        <div class="card-icon">
+                            <i class="fas fa-heart heart-icon"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-back">
+                    <div class="card-content">
+                        <textarea placeholder="Likho Ab Kya Hana Ki" class="promise-input" maxlength="200"></textarea>
+                        <button class="submit-promise">Yhaan Maaro</button>
+                        <div class="success-message hidden">
+                            <p>Done Mera Bachha <i class="fas fa-check"></i></p>
+                            <p class="submitted-text"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+    <audio id="background-audio" loop preload="auto">
+        <source src="gift.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+    
+    
+    <div class="audio-controls" id="audio-toggle">
+        <i class="fas fa-volume-mute audio-icon" id="audio-icon"></i>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

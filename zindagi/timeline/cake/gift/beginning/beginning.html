@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eyyy Mere Jiiii</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Magical Background Elements -->
+    <div class="floating-elements">
+        <i class="fas fa-star"></i>
+        <i class="fas fa-heart"></i>
+        <i class="fas fa-moon"></i>
+        <i class="fas fa-star"></i>
+        <i class="fas fa-heart"></i>
+    </div>
+    
+    <!-- Main Layout Container -->
+    <div class="main-container">
+        <!-- Left Slideshow Section (28% - slightly smaller) -->
+        <div class="slideshow-section">
+            <div class="slideshow-wrapper">
+                <div class="slide active">
+                    <div class="slide-caption">Love</div>
+                </div>
+                <!-- Additional slides will be added by JavaScript -->
+            </div>
+            
+        </div>
+        
+        <!-- Right Content Section (72% - adjusted) -->
+        <div class="content-section">
+            <div class="content-wrapper">
+                <h1 class="section-title">Zindagi Ki Wajah</h1>
+                <p class="content-text">
+                    💫 <strong>Aaj woh din hai</strong> jis din meri zindagi ne pehli saans li thi...  
+                    Unki <strong>pehli aahat</strong>, unka <strong>pehla ehsaas</strong>, unki <strong>pehli khushboo</strong> – sab kuch aaj tha 💖  
+                    Mera baccha aaj jaake usi saal ki ho gayi, jo hum dono ke liye sabse khaas hai — <strong>22</strong>, jab hum <em>ek hue the</em> 🌸  
+                    Kya doon aapko is din? Sab kuch toh <strong>le gayi ho</strong> aap mera...
+                </p>
+
+                <p class="content-text">
+                    🫀 <strong>Aap woh ho</strong> jisse main sab kuch <strong>haar betha</strong>...  
+                    Meri <strong>khushi aap ho</strong>, mera <strong>sukoon aap</strong>, mera <strong>chain aap</strong>, meri <strong>zindagi aap</strong>, meri <strong>duniya aap ho</strong> 💕  
+                    Mere is duniya mein aane ki wajah bhi <strong>aap</strong>. Agar aap nahi hote toh kuch bhi nahi hota...  
+                    <strong>Aap kya nahi ho? Sab kuch toh ho mere liye </strong>  
+                    
+                </p>
+
+                <p class="content-text">
+                     <strong>Dekh toh nahi sakta</strong> aapko aaj... mehsoos bhi nahi kar sakta, maya door ki baat,  
+                    Isliye in <strong>chaar dinon se</strong>, bina khaye, bina piye,bina nhaaye,mere ji ke periods mey tak bina rahe har pal har ghadi sirf isi mein ghoomta raha...  
+                    Sirf itna chahta tha ki chahe jitni bhi takleef ho, thakaan ho, chahe mujhe <strong>aap se door hi kyu na rehna pade</strong>...  
+                    Bas itna chaha ki jab bhi aap ye dekhein, <strong>aapke chehre pe muskaan aajaye</strong>...  
+                    Ye Dekhke agar aap <strong>khush ho jaayein</strong>, aake gale lag lein mujhe 💞 toh mere liye sabuch hoga
+                </p>
+
+                <p class="content-text">
+                    🎁 Par <strong>waada hai mera</strong> — aane wale waqt mein aapke is har din ko itna khaas bana dunga ...  
+                    Ki aapko khud samajh na aaye, <strong>kaunsa sabse behtar tha</strong>, kaunsa sabse zyada accha 💫  
+                </p>
+
+                <p class="content-text">
+                    🩷 Bas ye kehna chahta hoon, <strong>Shaik Afifa Fathima</strong>, aap meri zindagi ho.  
+                    Aapke liye <strong>jeeyenge</strong>, aap hi ke liye hi <strong>marenge</strong> 💖  
+                    Aap meri <strong>dua</strong> bhi ho, meri <strong>duniya</strong> bhi... Deen bhi Zindagi bhi aur sabkuch
+                </p>
+                
+                <!-- Love Declaration Section -->
+                <div class="love-declaration">
+                    <h2 class="love-text">I Love You Afifa</h2>
+                    <div class="signature">- Sahil</div>
+                </div>
+                
+                <!-- Countdown Button -->
+                <button class="countdown-btn" id="countdown-btn">
+                    <span class="btn-text">Bus Yahaan Aakhir</span>
+                    <span class="btn-icon"><i class="fas fa-heart"></i></span>
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Audio Player & Controls -->
+    <audio id="background-audio" loop preload="auto">
+        <source src="beginning.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+    
+    
+    <div class="audio-controls" id="audio-toggle">
+        <i class="fas fa-volume-mute audio-icon" id="audio-icon"></i>
+    </div>
+    
+    <!-- Modal for Countdown -->
+    <div class="modal" id="countdown-modal">
+        <div class="modal-content">
+            <span class="close-modal" id="close-modal"><i class="fas fa-times"></i></span>
+            <h2 class="countdown-title">Agli Baar Dhamaka Hoga</h2>
+            <p class="birthday-date">May 9, 2026</p>
+            <div class="countdown-timer" id="countdown-timer">
+                <div class="countdown-item">
+                    <div class="countdown-number" id="days">365</div>
+                    <div class="countdown-label">Days</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-number" id="hours">24</div>
+                    <div class="countdown-label">Hours</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-number" id="minutes">60</div>
+                    <div class="countdown-label">Minutes</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-number" id="seconds">60</div>
+                    <div class="countdown-label">Seconds</div>
+                </div>
+            </div>
+            <p class="countdown-message">Chalo aao ab jorrrr se gale lago<br><br><strong>Happy Birthday Mera Beta</strong></p>
+            <div class="floating-elements">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-heart"></i>
+                <i class="fas fa-moon"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-heart"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

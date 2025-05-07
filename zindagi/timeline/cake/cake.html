@@ -1,0 +1,1350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Cake Taatinge</title>
+    
+    <style>
+         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+   
+    body {
+        font-family: 'Poppins', sans-serif;
+        background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+        background-size: 400% 400%;
+        animation: gradient 15s ease infinite;
+        color: #fff;
+        height: 100vh;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+    }
+
+    @keyframes gradient {
+        0% {
+            background-position: 0% 50%;
+        }
+        50% {
+            background-position: 100% 50%;
+        }
+        100% {
+            background-position: 0% 50%;
+        }
+    }
+
+    .container {
+        width: 100%;
+        max-width: 800px;
+        height: 80vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        z-index: 10;
+    }
+
+    .cake-scene {
+        width: 100%;
+        height: 60%;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 40px;
+    }
+
+    #cake-container {
+        width: 350px;
+        height: 350px;
+        position: relative;
+        filter: drop-shadow(0 0 25px rgba(255, 255, 255, 0.2));
+        transition: all 0.5s ease;
+    }
+
+    .controls {
+        margin-top: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        align-items: center;
+    }
+
+    .action-btn {
+        padding: 15px 35px;
+        background: linear-gradient(145deg, #ff6b6b, #ff8e8e);
+        color: white;
+        border: none;
+        border-radius: 30px;
+        font-size: 20px;
+        font-weight: 600;
+        letter-spacing: 1px;
+        cursor: pointer;
+        box-shadow: 0 10px 20px rgba(255, 107, 107, 0.4);
+        transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        position: relative;
+        overflow: hidden;
+        z-index: 1;
+        transform: translateY(0);
+    }
+
+    .action-btn::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+        transition: 0.5s;
+        z-index: -1;
+    }
+
+    .action-btn:hover::before {
+        left: 100%;
+    }
+
+    .action-btn:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 15px 30px rgba(255, 107, 107, 0.6);
+    }
+
+    .action-btn:active {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 15px rgba(255, 107, 107, 0.4);
+    }
+
+    .hidden {
+        display: none !important;
+    }
+
+    #knife {
+        position: absolute;
+        width: 140px;
+        height: 140px;
+        cursor: grab;
+        z-index: 100;
+        transition: transform 0.2s ease;
+        filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.6));
+    }
+
+    #knife:active {
+        cursor: grabbing;
+    }
+
+    #knife svg {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.8));
+    }
+
+    #knife-glow {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 80%;
+        height: 80%;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(255, 215, 0, 0.6) 0%, rgba(255, 215, 0, 0) 70%);
+        z-index: -1;
+        animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+        0% {
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 0.6;
+        }
+        50% {
+            transform: translate(-50%, -50%) scale(1.3);
+            opacity: 0.8;
+        }
+        100% {
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 0.6;
+        }
+    }
+
+    .heart {
+        position: absolute;
+        font-size: 18px;
+        color: #ff6b6b;
+        pointer-events: none;
+        animation: float-up 1.8s forwards;
+        opacity: 0;
+    }
+
+    @keyframes float-up {
+        0% {
+            transform: translateY(0) rotate(0deg);
+            opacity: 1;
+        }
+        100% {
+            transform: translateY(-80px) rotate(20deg);
+            opacity: 0;
+        }
+    }
+
+    #speech-bubble {
+        position: absolute;
+        background: linear-gradient(135deg, #fff8f0, #ffffff);
+        border-radius: 25px;
+        padding: 15px 25px;
+        min-width: 180px;
+        max-width: 250px;
+        color: #333;
+        font-size: 18px;
+        text-align: center;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3), inset 0 2px 5px rgba(255, 255, 255, 0.9);
+        z-index: 200;
+        animation: pop-in 0.5s forwards cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        transform-origin: bottom center;
+    }
+
+    #speech-bubble:after {
+        content: '';
+        position: absolute;
+        bottom: -12px;
+        left: 50%;
+        transform: translateX(-50%);
+        border-width: 12px 12px 0;
+        border-style: solid;
+        border-color: #ffffff transparent transparent transparent;
+    }
+
+    @keyframes pop-in {
+        0% {
+            transform: scale(0);
+            opacity: 0;
+        }
+        70% {
+            transform: scale(1.1);
+            opacity: 1;
+        }
+        100% {
+            transform: scale(1);
+            opacity: 1;
+        }
+    }
+
+    #celebration-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 50;
+    }
+
+    .celebration-item {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    .balloon, .heart-float, .sparkle {
+        position: absolute;
+        animation: float-down 15s linear forwards;
+        opacity: 0;
+    }
+
+    .balloon {
+        font-size: 45px;
+        filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.4));
+    }
+
+    .heart-float {
+        font-size: 32px;
+        color: #ff6b6b;
+        filter: drop-shadow(0 0 5px rgba(255, 107, 107, 0.6));
+    }
+
+    .sparkle {
+        width: 12px;
+        height: 12px;
+        background: radial-gradient(circle, #fff 0%, rgba(255, 215, 0, 0.8) 100%);
+        border-radius: 50%;
+        box-shadow: 0 0 20px 5px rgba(255, 215, 0, 0.7);
+    }
+
+    @keyframes float-down {
+        0% {
+            transform: translateY(-50px) rotate(0deg);
+            opacity: 0;
+        }
+        10% {
+            opacity: 1;
+        }
+        90% {
+            opacity: 1;
+        }
+        100% {
+            transform: translateY(110vh) rotate(360deg);
+            opacity: 0;
+        }
+    }
+
+    .stars-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 1;
+    }
+
+    .star {
+        position: absolute;
+        width: 3px;
+        height: 3px;
+        background-color: #fff;
+        border-radius: 50%;
+        box-shadow: 0 0 10px 3px rgba(255, 255, 255, 0.8);
+        animation: twinkle 5s infinite;
+    }
+
+    @keyframes twinkle {
+        0%, 100% {
+            opacity: 0.5;
+            transform: scale(1);
+        }
+        50% {
+            opacity: 1;
+            transform: scale(1.5);
+        }
+    }
+
+    .moon {
+        position: fixed;
+        top: 60px;
+        right: 60px;
+        width: 80px;
+        height: 80px;
+        background-color: #fff9c4;
+        border-radius: 50%;
+        box-shadow: 0 0 40px rgba(255, 249, 196, 0.9);
+        opacity: 0.8;
+        z-index: 1;
+        pointer-events: none;
+        animation: moon-glow 10s infinite ease-in-out;
+    }
+
+    @keyframes moon-glow {
+        0%, 100% {
+            box-shadow: 0 0 30px rgba(255, 249, 196, 0.7);
+        }
+        50% {
+            box-shadow: 0 0 60px rgba(255, 249, 196, 1);
+        }
+    }
+
+    .moon:before {
+        content: '';
+        position: absolute;
+        top: 15px;
+        left: 15px;
+        width: 15px;
+        height: 15px;
+        background-color: rgba(255, 255, 255, 0.8);
+        border-radius: 50%;
+        box-shadow: 25px 10px 0 0 rgba(255, 255, 255, 0.6),
+                    45px 20px 0 0 rgba(255, 255, 255, 0.4);
+    }
+
+    .gift-box {
+        position: absolute;
+        bottom: -100%;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 120px;
+        height: 120px;
+        cursor: pointer;
+        z-index: 100;
+        transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        filter: drop-shadow(0 10px 25px rgba(255, 107, 107, 0.5));
+    }
+
+    .gift-box:hover {
+        transform: translateX(-50%) scale(1.1);
+        filter: drop-shadow(0 15px 35px rgba(255, 107, 107, 0.7));
+    }
+
+    .confetti-piece {
+        position: absolute;
+        width: 10px;
+        height: 30px;
+        background-color: #f0f;
+        top: -20px;
+        opacity: 0;
+    }
+
+    @keyframes confetti-fall {
+        0% {
+            opacity: 1;
+            top: -20px;
+            transform: translateX(0) rotate(0deg);
+        }
+        100% {
+            opacity: 0;
+            top: 100vh;
+            transform: translateX(calc(var(--translate-end) * 100px)) rotate(calc(var(--rotate-end) * 360deg));
+        }
+    }
+
+    #birthday-message {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(255, 245, 230, 0.95));
+        padding: 40px 60px;
+        border-radius: 30px;
+        box-shadow: 0 0 60px rgba(255, 107, 107, 0.9), 0 10px 30px rgba(0, 0, 0, 0.2);
+        color: #333;
+        font-weight: bold;
+        font-size: 42px;
+        text-align: center;
+        z-index: 1000;
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0);
+        transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .message-visible {
+        opacity: 1 !important;
+        transform: translate(-50%, -50%) scale(1) !important;
+    }
+
+    /* Candle and flame animations */
+    .candle-flame {
+        position: absolute;
+        width: 20px;
+        height: 30px;
+        background: radial-gradient(ellipse at center, #ffff00 0%, #ffcc00 40%, #ff9900 70%, transparent 100%);
+        border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+        box-shadow: 0 0 20px 5px rgba(255, 215, 0, 0.8);
+        animation: flicker 1s infinite alternate;
+        z-index: 5;
+    }
+
+    @keyframes flicker {
+        0%, 100% {
+            transform: scale(1);
+            opacity: 0.8;
+        }
+        50% {
+            transform: scale(1.1) skewX(3deg);
+            opacity: 1;
+        }
+        75% {
+            transform: scale(0.9) skewX(-1deg);
+            opacity: 0.9;
+        }
+    }
+
+    /* Cake styles for 2D version */
+    .cake-2d {
+        position: relative;
+        width: 300px;
+        height: 280px;
+        margin: 0 auto;
+    }
+
+    .cake-base {
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 260px;
+        height: 100px;
+        background: linear-gradient(to right, #f18d9e, #ff6b6b, #f18d9e);
+        border-radius: 10px 10px 50% 50% / 10px 10px 30px 30px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .cake-middle {
+        position: absolute;
+        bottom: 90px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 220px;
+        height: 90px;
+        background: linear-gradient(to right, #faefa5, #fff4a5, #faefa5);
+        border-radius: 10px 10px 3px 3px;
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .cake-top {
+        position: absolute;
+        bottom: 170px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 180px;
+        height: 80px;
+        background: linear-gradient(to right, #f18d9e, #ff6b6b, #f18d9e);
+        border-radius: 10px 10px 3px 3px;
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .frosting {
+        position: absolute;
+        width: 100%;
+        height: 20px;
+        background: rgba(255, 255, 255, 0.8);
+        border-radius: 10px 10px 0 0;
+        top: -10px;
+    }
+
+    .frosting::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.7) 6px, transparent 8px),
+                    radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.7) 6px, transparent 8px),
+                    radial-gradient(circle at 80% 50%, rgba(255, 255, 255, 0.7) 6px, transparent 8px);
+    }
+
+    .candle {
+        position: absolute;
+        width: 15px;
+        height: 40px;
+        background: linear-gradient(to right, #a5e7ff, #ffffff, #a5e7ff);
+        border-radius: 5px;
+    }
+
+    /* Position candles */
+    .candle:nth-child(1) {
+        bottom: calc(170px + 80px);
+        left: calc(50% - 40px);
+    }
+
+    .candle:nth-child(2) {
+        bottom: calc(170px + 80px);
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .candle:nth-child(3) {
+        bottom: calc(170px + 80px);
+        right: calc(50% - 40px);
+    }
+
+    /* Position flames */
+    .candle-flame:nth-child(1) {
+        bottom: calc(170px + 80px + 40px);
+        left: calc(50% - 40px);
+        transform: translateX(-2px);
+    }
+
+    .candle-flame:nth-child(2) {
+        bottom: calc(170px + 80px + 40px);
+        left: 50%;
+        transform: translateX(-10px);
+    }
+
+    .candle-flame:nth-child(3) {
+        bottom: calc(170px + 80px + 40px);
+        right: calc(50% - 25px);
+    }
+
+    .decoration {
+        position: absolute;
+        width: 15px;
+        height: 15px;
+        background: #ff3366;
+        border-radius: 50%;
+        box-shadow: 0 0 10px rgba(255, 51, 102, 0.5);
+    }
+
+    .decoration:nth-child(1) { left: 10%; top: 20%; background: #ff3366; }
+    .decoration:nth-child(2) { left: 25%; top: 60%; background: #33ccff; }
+    .decoration:nth-child(3) { left: 45%; top: 30%; background: #ffcc33; }
+    .decoration:nth-child(4) { left: 65%; top: 70%; background: #66ff66; }
+    .decoration:nth-child(5) { left: 80%; top: 40%; background: #cc66ff; }
+
+    #animated-bg {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        opacity: 0.5;
+    }
+
+   
+    .animate-appear {
+        animation: appear 1s forwards cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    @keyframes appear {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    /* Sparkle animations */
+    .cake-sparkle {
+        position: absolute;
+        background: white;
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 50;
+        opacity: 0;
+    }
+    
+    @keyframes sparkle-animation {
+        0% {
+            opacity: 0;
+            transform: scale(0.2) rotate(0deg);
+        }
+        50% {
+            opacity: 1;
+            transform: scale(1) rotate(180deg);
+        }
+        100% {
+            opacity: 0;
+            transform: scale(0.2) rotate(360deg);
+        }
+    }
+    
+    /* Cake cut animation */
+    .cake-cut-left {
+        clip-path: polygon(0 0, 50% 0, 50% 100%, 0 100%);
+    }
+    
+    .cake-cut-right {
+        clip-path: polygon(50% 0, 100% 0, 100% 100%, 50% 100%);
+        transform: translateX(10px);
+    }
+    
+    .cake-slice {
+        position: absolute;
+        background: inherit;
+        border-radius: inherit;
+        height: 100%;
+        width: 50%;
+        transition: transform 0.5s ease;
+    }
+    .audio-controls {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    background-color: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(5px);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 100;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    transition: all 0.3s ease;
+}
+
+.audio-controls:hover {
+    transform: scale(1.1);
+    background-color: rgba(255, 255, 255, 0.25);
+}
+
+.audio-icon {
+    color: #333;
+    font-size: 1.3rem;
+}
+    </style>
+
+    <!-- Import necessary libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.7.13/lottie.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="cake-scene">
+            <div id="cake-container">
+                <div class="cake-2d">
+                    <div class="cake-base" id="cake-base">
+                        <div class="frosting"></div>
+                        <div class="decoration"></div>
+                        <div class="decoration"></div>
+                        <div class="decoration"></div>
+                    </div>
+                    <div class="cake-middle" id="cake-middle">
+                        <div class="frosting"></div>
+                        <div class="decoration"></div>
+                        <div class="decoration"></div>
+                    </div>
+                    <div class="cake-top" id="cake-top">
+                        <div class="frosting"></div>
+                        <div class="decoration"></div>
+                        <div class="candle"></div>
+                        <div class="candle"></div>
+                        <div class="candle"></div>
+                        <div class="candle-flame"></div>
+                        <div class="candle-flame"></div>
+                        <div class="candle-flame"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="knife" class="hidden">
+                <!-- SVG Knife -->
+                <svg viewBox="0 0 100 300" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="bladeGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" style="stop-color:#c0c0c0; stop-opacity:1" />
+                            <stop offset="50%" style="stop-color:#f5f5f5; stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#c0c0c0; stop-opacity:1" />
+                        </linearGradient>
+                        <linearGradient id="handleGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" style="stop-color:#654321; stop-opacity:1" />
+                            <stop offset="50%" style="stop-color:#8B4513; stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#654321; stop-opacity:1" />
+                        </linearGradient>
+                    </defs>
+                    <!-- Blade -->
+                    <path d="M40,10 L60,10 L75,120 L25,120 Z" fill="url(#bladeGradient)" stroke="#999" stroke-width="1" />
+                    <!-- Handle -->
+                    <rect x="35" y="120" width="30" height="80" rx="5" ry="5" fill="url(#handleGradient)" stroke="#5D4037" stroke-width="1" />
+                    <!-- Guard -->
+                    <rect x="25" y="120" width="50" height="10" rx="2" ry="2" fill="#8B4513" stroke="#5D4037" stroke-width="1" />
+                    <!-- Blade shine -->
+                    <path d="M50,10 L55,10 L65,120 L55,120 Z" fill="rgba(255,255,255,0.5)" />
+                </svg>
+                <div id="knife-glow"></div>
+            </div>
+            
+            <div id="speech-bubble" class="hidden">
+                <p id="speech-text"></p>
+            </div>
+            
+            <div class="gift-box hidden" id="gift-box">
+                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="boxGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#ff6b6b; stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#ff3366; stop-opacity:1" />
+                        </linearGradient>
+                        <linearGradient id="ribbonGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#ffcc33; stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#ffaa00; stop-opacity:1" />
+                        </linearGradient>
+                    </defs>
+                    <!-- Box base -->
+                    <rect x="20" y="40" width="60" height="50" fill="url(#boxGradient)" rx="3" ry="3" />
+                    <!-- Box top -->
+                    <rect x="15" y="30" width="70" height="15" fill="url(#boxGradient)" rx="2" ry="2" />
+                    <!-- Vertical ribbon -->
+                    <rect x="45" y="20" width="10" height="70" fill="url(#ribbonGradient)" />
+                    <!-- Horizontal ribbon -->
+                    <rect x="15" y="35" width="70" height="10" fill="url(#ribbonGradient)" />
+                    <!-- Bow center -->
+                    <circle cx="50" cy="40" r="8" fill="url(#ribbonGradient)" />
+                    <!-- Bow loops -->
+                    <ellipse cx="35" cy="40" rx="15" ry="10" fill="url(#ribbonGradient)" transform="rotate(-30, 35, 40)" />
+                    <ellipse cx="65" cy="40" rx="15" ry="10" fill="url(#ribbonGradient)" transform="rotate(30, 65, 40)" />
+                    <!-- Shine effect -->
+                    <polygon points="20,45 30,42 25,55 20,60" fill="rgba(255,255,255,0.3)" />
+                </svg>
+            </div>
+        </div>
+       
+        <div class="controls">
+            <button id="candle-btn" class="action-btn animate-appear">Candles Phoonko Baby</button>
+            <button id="next-section-btn" class="action-btn" onclick="location.href='gift/gift.html'">Tuma Kya Hana Vo Yhaan</button>
+
+        </div>
+    </div>
+   
+    <div id="celebration-container" class="hidden">
+        <div class="celebration-item" id="hearts"></div>
+        <div class="celebration-item" id="balloons"></div>
+        <div class="celebration-item" id="sparkles"></div>
+    </div>
+   
+    <div id="birthday-message" class="hidden">
+        <div class="message-content">
+            <span style="font-size:60px">🎂</span><br>
+            Happy Birthday!<br>
+            <span style="font-size:28px">Wishing you a magical day!</span>
+        </div>
+    </div>
+   
+    <div class="stars-container"></div>
+    <div class="moon"></div>
+   
+   
+    <audio id="background-audio" loop preload="auto">
+        <source src="cake.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+   
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Initialize elements
+        const cakeContainer = document.getElementById('cake-container');
+        const knife = document.getElementById('knife');
+        const candleBtn = document.getElementById('candle-btn');
+        const nextSectionBtn = document.getElementById('next-section-btn');
+        const giftBox = document.getElementById('gift-box');
+       
+       
+        
+        const cakeBase = document.getElementById('cake-base');
+        const cakeMiddle = document.getElementById('cake-middle');
+        const cakeTop = document.getElementById('cake-top');
+        let cakeIsCut = false;
+let knifePosition = { x: 0, y: 0 };
+let canBlowCandles = true;
+let candlesBlown = false;
+let isCakeCutting = false;
+const speechBubble = document.getElementById('speech-bubble');
+const speechText = document.getElementById('speech-text');
+const celebrationContainer = document.getElementById('celebration-container');
+const birthdayMessage = document.getElementById('birthday-message');
+
+// Initialize stars in the background
+createStars();
+
+// Handle audio
+
+
+// Create stars in the background
+function createStars() {
+    const starsContainer = document.querySelector('.stars-container');
+    const starCount = 100;
+    
+    for (let i = 0; i < starCount; i++) {
+        const star = document.createElement('div');
+        star.classList.add('star');
+        
+        // Random position
+        const left = Math.random() * 100;
+        const top = Math.random() * 100;
+        
+        star.style.left = `${left}%`;
+        star.style.top = `${top}%`;
+        
+        // Random delay for twinkling
+        star.style.animationDelay = `${Math.random() * 5}s`;
+        
+        starsContainer.appendChild(star);
+    }
+}
+
+// Candle blowing functionality
+candleBtn.addEventListener('click', function() {
+    if (!canBlowCandles || candlesBlown) return;
+    
+    candlesBlown = true;
+    const flames = document.querySelectorAll('.candle-flame');
+    
+    // Animate flames disappearing
+    flames.forEach((flame, index) => {
+        setTimeout(() => {
+            flame.style.opacity = '0';
+            flame.style.transform = 'scale(0.2) translateY(-10px)';
+            
+            // Create smoke effect
+            createSmoke(flame.getBoundingClientRect());
+            
+            // Play blow sound
+            const blowSound = new Audio('data:audio/mp3;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjU3LjgzLjEwMAAAAAAAAAAAAAAA//tAwAAAAAAAAAAAAAAAAAAAAAAASW5mbwAAAA8AAAAGAAADAABgYGBgYGBgYGBgYGBglJSUlJSUlJSUlJSUlMjIyMjIyMjIyMjIyMj8/Pz8/Pz8/Pz8/Pz8//////////////////////////////////////////////////////////8AAAAATGF2YzU3LjEwAAAAAAAAAAAAAAAAJAYAAAAAAAAAA/iYxeYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA');
+            blowSound.volume = 0.2;
+            blowSound.play();
+            
+            if (index === flames.length - 1) {
+                setTimeout(() => {
+                    showSpeechBubble('Cake Taateenge Aao Mmm Ab');
+                    knife.classList.remove('hidden');
+                    candleBtn.classList.add('hidden');
+                    
+                    // Enable dragging for knife
+                    enableDragging();
+                }, 1000);
+            }
+        }, index * 300);
+    });
+});
+
+// Create smoke effect
+function createSmoke(position) {
+    for (let i = 0; i < 5; i++) {
+        const smoke = document.createElement('div');
+        smoke.style.position = 'absolute';
+        smoke.style.width = '15px';
+        smoke.style.height = '15px';
+        smoke.style.borderRadius = '50%';
+        smoke.style.background = 'rgba(200, 200, 200, 0.8)';
+        smoke.style.left = `${position.left + position.width/2}px`;
+        smoke.style.top = `${position.top}px`;
+        smoke.style.zIndex = '10';
+        
+        document.body.appendChild(smoke);
+        
+        gsap.to(smoke, {
+            y: -50 - Math.random() * 30,
+            x: (Math.random() - 0.5) * 40,
+            opacity: 0,
+            scale: 2 + Math.random(),
+            duration: 1.5 + Math.random(),
+            onComplete: () => {
+                document.body.removeChild(smoke);
+            }
+        });
+    }
+}
+
+// Enable dragging for knife
+function enableDragging() {
+    let isDragging = false;
+    let offsetX, offsetY;
+    
+    knife.addEventListener('mousedown', startDrag);
+    knife.addEventListener('touchstart', e => {
+        const touch = e.touches[0];
+        e.clientX = touch.clientX;
+        e.clientY = touch.clientY;
+        startDrag(e);
+    }, { passive: false });
+    
+    function startDrag(e) {
+        e.preventDefault();
+        isDragging = true;
+        
+        const rect = knife.getBoundingClientRect();
+        offsetX = e.clientX - rect.left;
+        offsetY = e.clientY - rect.top;
+        
+        document.addEventListener('mousemove', drag);
+        document.addEventListener('touchmove', e => {
+            const touch = e.touches[0];
+            e.clientX = touch.clientX;
+            e.clientY = touch.clientY;
+            drag(e);
+        }, { passive: false });
+        
+        document.addEventListener('mouseup', stopDrag);
+        document.addEventListener('touchend', stopDrag);
+    }
+    
+    function drag(e) {
+        if (!isDragging) return;
+        e.preventDefault();
+        
+        knifePosition.x = e.clientX - offsetX;
+        knifePosition.y = e.clientY - offsetY;
+        
+        knife.style.left = `${knifePosition.x}px`;
+        knife.style.top = `${knifePosition.y}px`;
+        
+        // Check if knife is over cake
+        checkCakeCutting();
+    }
+    
+    function stopDrag() {
+        isDragging = false;
+        document.removeEventListener('mousemove', drag);
+        document.removeEventListener('touchmove', drag);
+    }
+    
+    // Position knife initially
+    const cakeRect = cakeContainer.getBoundingClientRect();
+    knife.style.left = `${cakeRect.right + 50}px`;
+    knife.style.top = `${cakeRect.top + cakeRect.height/2 - 70}px`;
+}
+
+// Check if knife is over cake and handle cutting
+function checkCakeCutting() {
+    if (cakeIsCut || isCakeCutting) return;
+    
+    const knifeRect = knife.getBoundingClientRect();
+    const cakeRect = cakeContainer.getBoundingClientRect();
+    
+    // Check if knife is over cake
+    if (
+        knifeRect.right > cakeRect.left &&
+        knifeRect.left < cakeRect.right &&
+        knifeRect.bottom > cakeRect.top + (cakeRect.height * 0.3) &&
+        knifeRect.top < cakeRect.bottom
+    ) {
+        isCakeCutting = true;
+        
+        // Play cutting sound
+        const cutSound = new Audio('data:audio/mp3;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjU4LjI5LjEwMAAAAAAAAAAAAAAA//tAwAAAAAAAAAAAAAAAAAAAAAAASW5mbwAAAA8AAAAGAAABIABpaWlpaWlpaWlpaWmZmZmZmZmZmZmZmZnMzMzMzMzMzMzMzMz///////////////////////////////////////////////8AAAAATGF2YzU4LjU0AAAAAAAAAAAAAAAAJAQqAAAAAAAAASCH0zo3AAAAAAAAAAAAAAAAAAAAAP/7UMQAAAdEAF1BACQA0gALqDACABO6UBfz08Ng+D4Pg+/l7+t7+X4fE8QA+D4Pv5e/re/l+HxPEAP+XgPg+D7+t8QHx/8QA+P4Pg+D4Pg/KAgCAIAgCARDOgB82MUTnNIhMZQQU5NB0TjO1CAhpyaDonGdqEBDTk0HQh+fwQENOTQdE4ztQgIacmg6EPz+CAhpyaDonGdqEBDTk0HQh+fwQENOTQdE4ztQgIacmg6EPz+CAhpyaDonGdqEBDTk0HQh+fwQXQLIXWBDGAJAMBAMAQA=');
+        cutSound.volume = 0.3;
+        cutSound.play();
+        
+        // Create cake slice effect
+        createCakeSlices();
+        
+        // Animate sparkles
+        createSparklesOnCake();
+        
+        setTimeout(() => {
+            showSpeechBubble('Amazing! You cut the cake! Let\'s celebrate!');
+            
+            setTimeout(() => {
+                // Show next button
+                nextSectionBtn.classList.remove('hidden');
+                knife.classList.add('hidden');
+                
+                // Enable next phase
+                cakeIsCut = true;
+                isCakeCutting = false;
+            }, 1500);
+        }, 1000);
+    }
+}
+
+// Create cake slices
+function createCakeSlices() {
+    // Create left and right slices for each layer
+    const layers = [cakeBase, cakeMiddle, cakeTop];
+    
+    layers.forEach(layer => {
+        // Create slice containers
+        const leftSlice = document.createElement('div');
+        leftSlice.className = 'cake-slice';
+        leftSlice.classList.add('cake-cut-left');
+        
+        const rightSlice = document.createElement('div');
+        rightSlice.className = 'cake-slice';
+        rightSlice.classList.add('cake-cut-right');
+        
+        // Copy styles from original layer
+        const computedStyle = window.getComputedStyle(layer);
+        leftSlice.style.background = computedStyle.background;
+        rightSlice.style.background = computedStyle.background;
+        
+        // Add slices to parent
+        layer.appendChild(leftSlice);
+        layer.appendChild(rightSlice);
+        
+        // Animate the right slice
+        setTimeout(() => {
+            gsap.to(rightSlice, {
+                x: 30,
+                duration: 0.5,
+                ease: "power1.out"
+            });
+        }, 200);
+    });
+}
+
+// Create sparkles on cake
+function createSparklesOnCake() {
+    const cakeRect = cakeContainer.getBoundingClientRect();
+    
+    for (let i = 0; i < 20; i++) {
+        const sparkle = document.createElement('div');
+        sparkle.className = 'cake-sparkle';
+        
+        // Random size
+        const size = 5 + Math.random() * 10;
+        sparkle.style.width = `${size}px`;
+        sparkle.style.height = `${size}px`;
+        
+        // Random position within cake
+        const left = cakeRect.left + (cakeRect.width * 0.3) + Math.random() * (cakeRect.width * 0.4);
+        const top = cakeRect.top + Math.random() * cakeRect.height;
+        
+        sparkle.style.left = `${left}px`;
+        sparkle.style.top = `${top}px`;
+        
+        // Random color
+        const hue = Math.floor(Math.random() * 360);
+        sparkle.style.background = `radial-gradient(circle, white 10%, hsl(${hue}, 100%, 70%) 70%)`;
+        sparkle.style.boxShadow = `0 0 5px 2px hsl(${hue}, 100%, 70%)`;
+        
+        document.body.appendChild(sparkle);
+        
+        // Animate
+        sparkle.style.animation = `sparkle-animation ${0.5 + Math.random() * 0.5}s forwards`;
+        
+        // Remove after animation
+        sparkle.addEventListener('animationend', () => {
+            document.body.removeChild(sparkle);
+        });
+    }
+}
+
+// Show speech bubble with text
+function showSpeechBubble(text) {
+    speechText.textContent = text;
+    speechBubble.classList.remove('hidden');
+    
+    // Position speech bubble above cake
+    const cakeRect = cakeContainer.getBoundingClientRect();
+    speechBubble.style.left = `${cakeRect.left + cakeRect.width/2}px`;
+    speechBubble.style.top = `${cakeRect.top - 100}px`;
+    
+    // Auto hide after some time
+    setTimeout(() => {
+        speechBubble.classList.add('hidden');
+    }, 5000);
+}
+
+// Handle next section button (gift box)
+nextSectionBtn.addEventListener('click', function() {
+    // Hide buttons
+    nextSectionBtn.classList.add('hidden');
+    
+    // Show gift box animation
+    giftBox.classList.remove('hidden');
+    
+    // Animate gift box coming up
+    gsap.fromTo(giftBox, 
+        { bottom: -100 },
+        { bottom: 50, duration: 1.5, ease: "elastic.out(1, 0.5)" }
+    );
+    
+    // Make gift box clickable
+    giftBox.addEventListener('click', openGift);
+});
+
+// Open gift and final celebration
+function openGift() {
+    // Remove event listener to prevent multiple clicks
+    giftBox.removeEventListener('click', openGift);
+    
+    // Play gift open sound
+    const giftSound = new Audio('data:audio/mp3;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjU4LjI5LjEwMAAAAAAAAAAAAAAA//tAwAAAAAAAAAAAAAAAAAAAAAAASW5mbwAAAA8AAAAGAAABIABJSUlJSUlJSUlJSUmJiYmJiYmJiYmJiYnIyMjIyMjIyMjIyMj///////////////////////////////////////////////8AAAAATGF2YzU4LjU0AAAAAAAAAAAAAAAAJAYgAAAAAAAAASCWb+X7AAAAAAAAAAAAAAAAAAAAAP/7UMQAAAlMAGGMBAABEYEL5iGEJQlVK+V+SKmrX5H4CgfB9/5e+IP5fggBAEAQBAEDswgc4EAQBAEAQDGzwfB8HwfB8HwfkaIAQBAEAQBAdmEDnAgCAIAgCAAMbPB8HwfB8HwfB+RogBAEAQBAEB2YQOcCAIAgCAIAAxs8HwfB8EFgfE0ABwAGQARwEPuHD4Pw+D4Pg+D4P+Xvl75e+Xvl75fE3yn8QHxAEAQBAEAQBAEAQEFgfE0ABwAGQARwAAA=');
+    giftSound.play();
+    
+    // Animate gift opening
+    gsap.to(giftBox, {
+        scale: 1.3,
+        opacity: 0,
+        y: -100,
+        duration: 1.2,
+        ease: "power1.out",
+        onComplete: startCelebration
+    });
+}
+
+// Start final celebration animation
+function startCelebration() {
+    // Show celebration elements
+    celebrationContainer.classList.remove('hidden');
+    
+    // Create celebration elements
+    createBalloons();
+    createHearts();
+    createSparkles();
+    
+    // Show birthday message
+    setTimeout(() => {
+        birthdayMessage.classList.remove('hidden');
+        birthdayMessage.classList.add('message-visible');
+        
+        // Create confetti burst
+        createConfetti();
+    }, 1000);
+}
+
+// Create balloons
+function createBalloons() {
+    const colors = ['🎈', '🎈', '🎈', '🎈', '🎈'];
+    const container = document.getElementById('balloons');
+    
+    for (let i = 0; i < 20; i++) {
+        const balloon = document.createElement('div');
+        balloon.className = 'balloon';
+        balloon.textContent = colors[Math.floor(Math.random() * colors.length)];
+        
+        // Random positions
+        balloon.style.left = `${Math.random() * 100}%`;
+        balloon.style.animationDuration = `${15 + Math.random() * 10}s`;
+        balloon.style.animationDelay = `${Math.random() * 5}s`;
+        
+        container.appendChild(balloon);
+    }
+}
+
+// Create hearts
+function createHearts() {
+    const container = document.getElementById('hearts');
+    
+    for (let i = 0; i < 20; i++) {
+        const heart = document.createElement('div');
+        heart.className = 'heart-float';
+        heart.textContent = '❤️';
+        
+        // Random positions
+        heart.style.left = `${Math.random() * 100}%`;
+        heart.style.animationDuration = `${10 + Math.random() * 10}s`;
+        heart.style.animationDelay = `${Math.random() * 7}s`;
+        
+        container.appendChild(heart);
+    }
+}
+
+// Create sparkles
+function createSparkles() {
+    const container = document.getElementById('sparkles');
+    
+    for (let i = 0; i < 40; i++) {
+        const sparkle = document.createElement('div');
+        sparkle.className = 'sparkle';
+        
+        // Random positions
+        sparkle.style.left = `${Math.random() * 100}%`;
+        sparkle.style.animationDuration = `${8 + Math.random() * 7}s`;
+        sparkle.style.animationDelay = `${Math.random() * 5}s`;
+        
+        container.appendChild(sparkle);
+    }
+}
+
+// Create confetti
+function createConfetti() {
+    const colors = ['#ff6b6b', '#ffcc33', '#33ccff', '#66ff66', '#cc66ff', '#ff66cc'];
+    
+    for (let i = 0; i < 100; i++) {
+        const confetti = document.createElement('div');
+        confetti.className = 'confetti-piece';
+        
+        // Random confetti style
+        const size = Math.random() * 10 + 5;
+        confetti.style.width = `${size}px`;
+        confetti.style.height = `${Math.random() * 10 + 10}px`;
+        confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+        
+        // Random positions
+        confetti.style.left = `${Math.random() * 100}%`;
+        
+        // CSS custom property for randomness
+        confetti.style.setProperty('--translate-end', Math.random() * 2 - 1);
+        confetti.style.setProperty('--rotate-end', Math.random() * 2 - 1);
+        
+        // Animation
+        confetti.style.animation = `confetti-fall ${5 + Math.random() * 3}s forwards cubic-bezier(.25,.46,.45,.94)`;
+        
+        document.body.appendChild(confetti);
+        
+        // Remove after animation
+        confetti.addEventListener('animationend', () => {
+            document.body.removeChild(confetti);
+        });
+    }
+}
+
+// Create hearts when hovering over cake
+cakeContainer.addEventListener('mousemove', function(e) {
+    if (Math.random() > 0.9) {
+        const heart = document.createElement('div');
+        heart.className = 'heart';
+        heart.innerHTML = '❤️';
+        heart.style.left = `${e.pageX}px`;
+        heart.style.top = `${e.pageY}px`;
+        document.body.appendChild(heart);
+        
+        // Remove heart after animation completes
+        setTimeout(() => {
+            document.body.removeChild(heart);
+        }, 1800);
+    }
+});
+
+// Initial animation
+gsap.from(cakeContainer, {
+    y: 50,
+    opacity: 0,
+    duration: 1.5,
+    ease: "elastic.out(1, 0.5)"
+});
+
+// Add animated background
+const animatedBg = document.createElement('div');
+animatedBg.id = 'animated-bg';
+document.body.appendChild(animatedBg);
+
+// Initialize Lottie animation for background
+lottie.loadAnimation({
+    container: animatedBg,
+    renderer: 'svg',
+    loop: true,
+    autoplay: true,
+    path: 'https://assets3.lottiefiles.com/packages/lf20_usmfx6bp.json'
+});
+});
+initAudio();
+
+function initAudio() {
+    const audio = document.getElementById('background-audio');
+    const audioToggle = document.getElementById('audio-toggle');
+    const audioIcon = document.getElementById('audio-icon');
+    let isPlaying = false;
+
+    // Attempt to autoplay on load (most browsers will block this)
+    const tryAutoPlay = () => {
+        const playPromise = audio.play();
+        if (playPromise !== undefined) {
+            playPromise.then(() => {
+                isPlaying = true;
+                audioIcon.classList.remove('fa-volume-mute');
+                audioIcon.classList.add('fa-volume-up');
+            }).catch(error => {
+                console.warn("Autoplay blocked, will fallback after user interaction.");
+            });
+        }
+    };
+
+    // Try autoplay after short delay
+    window.addEventListener('load', () => {
+        setTimeout(tryAutoPlay, 200); // Slight delay to improve autoplay chance
+    });
+
+    // Fallback: Play after first user interaction if autoplay was blocked
+    document.addEventListener('click', function handleFirstClick() {
+        if (!isPlaying) {
+            tryAutoPlay();
+        }
+        document.removeEventListener('click', handleFirstClick);
+    }, { once: true });
+
+    // Toggle audio manually via button
+    audioToggle.addEventListener('click', function () {
+        if (audio.paused) {
+            audio.play();
+            audioIcon.classList.remove('fa-volume-mute');
+            audioIcon.classList.add('fa-volume-up');
+            isPlaying = true;
+        } else {
+            audio.pause();
+            audioIcon.classList.remove('fa-volume-up');
+            audioIcon.classList.add('fa-volume-mute');
+            isPlaying = false;
+        }
+    });
+}
+
+    </script>
+</body>
+</html>

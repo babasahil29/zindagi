@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shona ♥</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;500;600&family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Quicksand:wght@700&family=Abril+Fatface&family=Cinzel:wght@700&family=Raleway:wght@700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Add pulsing animation for audio control */
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7);
+            }
+            70% {
+                transform: scale(1.1);
+                box-shadow: 0 0 0 10px rgba(255, 255, 255, 0);
+            }
+            100% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+            }
+        }
+        
+    </style>
+</head>
+<body>
+    
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loading-screen">
+        <div class="countdown-container">
+            <div class="countdown-circle">
+                <svg class="countdown-svg" viewBox="0 0 100 100">
+                    <circle class="countdown-background" cx="50" cy="50" r="45"></circle>
+                    <circle class="countdown-progress" cx="50" cy="50" r="45"></circle>
+                </svg>
+                <div class="countdown-number" id="countdown-number">9</div>
+            </div>
+        </div>
+        <div class="loading-text">Bas Thode Pal Aur..</div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-container">
+        <!-- Background Elements -->
+        <div class="bg-elements">
+            <div class="gradient-bg"></div>
+            <div class="particles-container" id="particles-container"></div>
+        </div>
+
+        <!-- Header Section -->
+        <header class="header" id="header">
+            <div class="date-badge">
+                <span class="month">MAY 9</span>
+                
+            </div>
+        </header>
+
+        <!-- Hero Section -->
+        <section class="hero" id="hero">
+            <div class="hero-content">
+                <h1 class="title-text">Happy Birthday</h1>
+                <h2 class="subtitle-text">Mere Jiii..</h2>
+                <div class="name-container">
+                    <h3 class="name-text">Shaik Afifa Fathima</h3>
+                </div>
+              <!-- Modified HTML structure -->
+            <div class="message-container">
+    <div class="date-animation">
+        <span class="date-start">MAY 9 2003</span>
+        <span class="date-arrow">→</span>
+        <span class="date-end">MAY 9 2025</span>
+    </div>
+    <div class="age-box">
+        <span class="age-text">My Baby Turned</span>
+        <span class="age-number">22</span>
+    </div>
+
+            </div>
+               <!-- Updated Button Structure -->
+<!-- Simplified Button Structure -->
+<button class="cta-button" id="enter-button">
+    <span class="default-text">Yahaa Dabao Sona</span>
+    <span class="hover-text">Mera Baccha  💖</span>
+    <i class="fas fa-heart"></i>
+</button>
+            </div>
+        </section>
+
+        <!-- Audio Controls -->
+        <div class="audio-control" id="audio-control">
+            <i class="fas fa-volume-mute" id="audio-icon"></i>
+        </div>
+    </div>
+
+    <!-- Hidden Modal for Future Content -->
+    <div class="modal" id="birthday-modal">
+        <div class="modal-content">
+            <span class="close-button" id="close-modal">&times;</span>
+            <div class="modal-header">
+                <h2>Meri Zindagi</h2>
+            </div>
+            <div class="modal-body">
+                <p>Zindagi ki Sabse Pyaari Ehsaas Hamari</p>
+                <div class="wishes-container">
+                    <div class="wish">
+                        <i class="fas fa-star"></i>
+                        <p>25</p>
+                    </div>
+                    <div class="wish">
+                        <i class="fas fa-heart"></i>
+                        <p>28</p>
+                    </div>
+                    <div class="wish">
+                        <i class="fas fa-magic"></i>
+                        <p>22</p>
+                    </div>
+                    <div class="wish">
+                        <i class="fas fa-moon"></i>
+                        <p>Forever</p>
+                    </div>
+
+                </div>
+                <div class="message">
+                    <p>Ab Aise Jagah Chalte Hain Jisse Pata nahi aap kya kahengi</p>
+                    <p>Dil thaam lo Birthday pari,</p>
+                    <div class="button-signature-container">
+                        <!-- Updated button with inline onclick event -->
+                        <button class="timeline-button" id="timeline-button" onclick="window.location.href='timeline/timeline.html'">
+                          Chalo Dabao Ise
+                        </button>
+                        <p class="signature">Sahil</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Background Music with autoplay and preload -->
+    <audio id="background-music" loop src="tune.mp3" preload="auto"></audio>
+    
+    <script src="script.js"></script>
+    <script src="timeline-fix.js"></script>
+
+<!-- Alternative Direct Button -->
+
+
+<!-- Backup Timeline Button (hidden but functional) -->
+
+
+<!-- Show the emergency link if button doesn't work after 3 seconds -->
+
+</body>
+</html>
